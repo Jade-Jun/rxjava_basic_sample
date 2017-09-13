@@ -8,6 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import io.reactivex.Observable;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        final TextView textView = (TextView) findViewById(R.id.text_view);
+        Observable.just(textView.getText().toString())          // 이벤트가 시작되는 부분
+                .map(s -> s + "test!")                          // 이벤트를 가공하고 조합 하여 결과를 만듬
+                .subscribe(text -> textView.setText(text));     // 가공한 결과를 출력
+
     }
 
     @Override
