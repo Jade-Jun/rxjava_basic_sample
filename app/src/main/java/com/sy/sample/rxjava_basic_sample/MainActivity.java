@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -37,16 +38,19 @@ public class MainActivity extends AppCompatActivity {
 //                .map(s -> s + "test!")                          // 이벤트를 가공하고 조합 하여 결과를 만듬
 //                .subscribe(text -> textView.setText(text));     // 가공한 결과를 출력
 
-        int dan = 3;
 
         EditText input = (EditText) findViewById(R.id.edit_input);
         EditText result = (EditText) findViewById(R.id.edit_result);
+        Button btn_start = (Button) findViewById(R.id.btn_result);
 
-        input.setText(Integer.toString(dan));
-        Observable.range(1, 9)
-                .map(row -> dan + " * " + row + " = " + (dan * row))
-                .map(row -> row + "\n")
-                .subscribe(result::append);
+        btn_start.setOnClickListener(v -> {
+            int dan = Integer.parseInt(input.getText().toString());
+            result.setText("");
+            Observable.range(1, 9)
+                    .map(row -> dan + " * " + row + " = " + (dan * row))
+                    .map(row -> row + "\n")
+                    .subscribe(result::append);
+        });
 
     }
 
